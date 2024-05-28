@@ -26,9 +26,14 @@ void adicionarTarefa() {
     getline(cin, novaTarefa.nomeTarefa); // atribui um nome para a nova tarefa
     cout << "Digite a descrição da tarefa: ";
     getline(cin, novaTarefa.descricao); // atribui uma descricao a tarefa
-    cout << "Digite a data de vencimento da tarefa: ";
+    cout << "Digite a data de vencimento da tarefa (DD/MM/AAAA): ";
     getline(cin, novaTarefa.dataVencimento); // atribui uma data de vencimento a nova tarefa
-    novaTarefa.status = "Pendente"; // atribui "pendente" a o status da nova tarefa
+     cout << "Sua tarefa está concluida ou em pendencia? (1 para pendente ou 2 para concluida): ";
+    if (resp = 1){
+        novaTarefa.status = "Pendente"; // atribui pendente ao status da tarefa
+    }else{
+        novaTarefa.status = "Concluida"; // atribui concluido ao status da tarefa
+    }
     tarefas.push_back(novaTarefa); // criado a nova tarefa
     cout << "Tarefa adicionada com sucesso!\n";
 }
@@ -48,24 +53,71 @@ void listarTarefas() {
         }
     }
 }
-void editarTarefas(){
+
+void editarTarefas() {
     setlocale(LC_ALL, "pt_BR.UTF-8");
-    int res;
+    int id;
     cout << "Digite o ID da tarefa a ser editada: ";
-    cin >> res;
-    for(auto& tarefa : tarefas){
-        if(tarefa.id == res){
-            Tarefa editTarefa;
-            cout << "Nome: ";
-            getline(cin, editTarefa.nomeTarefa);
-            cout << "Descrição: ";
-            getline(cin, editTarefa.descricao);
-            cout << "Data de Vencimento: ";
-            getline(cin, editTarefa.dataVencimento);
-        }else{
-            cout << "Não tem nenhuma tarefa com esse ID\n";
+    cin >> id;
+    cin.ignore(); 
+
+    for (auto& tarefa : tarefas) {
+        if (tarefa.id == id) {
+            cout << "Digite o novo nome da tarefa: ";
+            string nome;
+            getline(cin, nome);
+            if (!nome.empty()) {
+                tarefa.nomeTarefa = nome;
+            }
+
+            cout << "Digite a nova descrição da tarefa: ";
+            string descricao;
+            getline(cin, descricao);
+            if (!descricao.empty()) {
+                tarefa.descricao = descricao;
+            }
+
+            cout << "Digite a nova data de vencimento da tarefa: ";
+            string dataVencimento;
+            getline(cin, dataVencimento);
+            if (!dataVencimento.empty()) {
+                tarefa.dataVencimento = dataVencimento;
+            }
+
+            cout << "Digite o novo status da tarefa: ";
+            string status;
+            getline(cin, status);
+            if (!status.empty()) {
+                tarefa.status = status;
+            }
+
+            cout << "Tarefa editada com sucesso!\n";
+            return;
         }
     }
+    cout << "Não foi encontrada nenhuma tarefa com o ID fornecido.\n";
+}
+
+void removerTarefa() {
+    setlocale(LC_ALL, "pt_BR.UTF-8");
+    int id;
+    cout << "Digite o ID da tarefa para ser removida: ";
+    cin >> id;
+
+    auto it = remove_if(tarefas.begin(), tarefas.end(), [id](const Tarefa& tarefa) {
+        return tarefa.id == id;
+    });
+
+    if (it != tarefas.end()) {
+        tarefas.erase(it, tarefas.end());
+        cout << "Tarefa removida com sucesso!\n";
+    } else {
+        cout << "Não foi encontrada nenhuma tarefa com o ID fornecido.\n";
+    }
+}
+
+void pesquisarTarefas(){
+
 }
 
 int main() {
@@ -78,7 +130,9 @@ int main() {
         cout << "2. Visualizar Tarefas\n";
         cout << "3. Editar Tarefas\n";
         cout << "4. Remover Tarefa\n";
-        cout << "5. Sair\n";
+        cout << "5. Buscar Tarefa\n";
+        cout << "6. Filtrar tarefa por status\n";
+        cout << "7. Sair\n";
         cout << "Escolha uma opção: ";
         cin >> escolha;
 
@@ -93,15 +147,15 @@ int main() {
                 editarTarefas();
             break;
             case 4:
-
+                removerTarefas();
             break;
-            case 5:
+            case 7:
                 cout << "Saindo do programa.\n";
                 break;
             default:
                 cout << "Opção inválida. Tente novamente.\n";
         }
-    } while (escolha != 5);
+    } while (escolha != 7);
 
     return 0;
 }
