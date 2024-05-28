@@ -1,0 +1,13 @@
+Utiliza a função remove_if da biblioteca <algorithm> para procurar e marcar para remoção a 
+tarefa cujo id coincide com o ID fornecido. O remove_if usa um iterador (it) para indicar a
+posição no vetor onde a tarefa com o ID foi encontrada.
+
+tarefas.begin(): Retorna um iterador apontando para o início do vetor tarefas.
+tarefas.end(): Retorna um iterador apontando para o final do vetor tarefas.
+[id](const Tarefa& tarefa) { return tarefa.id == id; }: Um lambda que verifica se o id da tarefa é igual ao id fornecido pelo usuário. Se a condição for verdadeira, a tarefa é marcada para remoção.
+
+if (it != tarefas.end()) {: Verifica se o iterador it não é igual ao final do vetor (tarefas.end()). Isso significa que pelo menos uma tarefa com o ID fornecido foi encontrada.
+tarefas.erase(it, tarefas.end());: Remove do vetor tarefas todos os elementos marcados para remoção a partir da posição it até o final do vetor. A função erase efetua a remoção física dos elementos.
+cout << "Tarefa removida com sucesso!\n";: Exibe uma mensagem confirmando a remoção bem-sucedida da tarefa.
+else { cout << "Não foi encontrada nenhuma tarefa com o ID fornecido.\n"; }: Se it for igual a tarefas.end(),
+significa que nenhuma tarefa com o ID fornecido foi encontrada. Exibe uma mensagem informando que nenhuma tarefa foi encontrada com o ID fornecido.
