@@ -2,6 +2,8 @@
 #include <vector>
 #include <string>
 #include <cstdlib>
+#include <algorithm>
+#include <regex>
 
 using namespace std;
 
@@ -19,6 +21,7 @@ vector<Tarefa> tarefas;
 
 void adicionarTarefa() {
     setlocale(LC_ALL, "pt_BR.UTF-8");
+    int resp;
     Tarefa novaTarefa; // cria uma tarefa que tem todos os campos do structure vazios
     novaTarefa.id = rand() % 20;// atribui um id aleatorio de 1 a 20 para a nova tarefa
     cin.ignore();
@@ -29,6 +32,7 @@ void adicionarTarefa() {
     cout << "Digite a data de vencimento da tarefa (DD/MM/AAAA): ";
     getline(cin, novaTarefa.dataVencimento); // atribui uma data de vencimento a nova tarefa
      cout << "Sua tarefa está concluida ou em pendencia? (1 para pendente ou 2 para concluida): ";
+     cin >> resp;
     if (resp = 1){
         novaTarefa.status = "Pendente"; // atribui pendente ao status da tarefa
     }else{
@@ -116,9 +120,46 @@ void removerTarefa() {
     }
 }
 
-void pesquisarTarefas(){
+void pesquisarTarefas() {
+    setlocale(LC_ALL, "pt_BR.UTF-8");
+    string nome;
+    cout << "Digite o nome (ou as primeiras letras) da tarefa que deseja pesquisar: ";
+    cin >> nome;
 
+    bool found = false;
+    for (const auto& tarefa : tarefas) {
+        if (tarefa.nomeTarefa.find(nome) == 0) { // verifica se o nome da tarefa começa com a string fornecida
+            if (!found) {
+                cout << "========== Resultados da Pesquisa: ==========\n";
+                found = true;
+            }
+            cout << "ID: " << tarefa.id << "\n";
+            cout << "Nome: " << tarefa.nomeTarefa << "\n";
+            cout << "Descrição: " << tarefa.descricao << "\n";
+            cout << "Data de Vencimento: " << tarefa.dataVencimento << "\n";
+            cout << "Status: " << tarefa.status << "\n\n";
+        }
+    }
+
+    if (!found) {
+        cout << "Nenhuma tarefa encontrada com o critério de pesquisa fornecido.\n";
+    }
 }
+
+/*
+  if (tarefas.empty()) { // se não houver nemhuma tarefa 
+        cout << "Não há tarefas cadastradas.\n";
+    } else { // se houver tarefas
+        cout << "========== Lista de Tarefas: ==========\n";
+        for (const auto& tarefa : tarefas) { // cria uma variavel tarefa que represetara os elementos do vetor / o "auto" verifica automaticamente que tipo de dados é com base no vector
+            cout << "ID: " << tarefa.id << "\n";
+            cout << "Nome: " << tarefa.nomeTarefa << "\n";
+            cout << "Descrição: " << tarefa.descricao << "\n";
+            cout << "Data de Vencimento: " << tarefa.dataVencimento << "\n";
+            cout << "Status: " << tarefa.status << "\n\n";
+        }
+    }
+    */
 
 int main() {
     setlocale(LC_ALL, "pt_BR.UTF-8");
@@ -147,7 +188,13 @@ int main() {
                 editarTarefas();
             break;
             case 4:
-                removerTarefas();
+                removerTarefa();
+            break;
+            case 5:
+                pesquisarTarefas();
+                break;
+            case 6:
+
             break;
             case 7:
                 cout << "Saindo do programa.\n";
