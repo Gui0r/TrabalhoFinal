@@ -142,7 +142,7 @@ void pesquisarTarefas() {
         }
     }
 
-    if (!found) {
+    if (found = false) {
         cout << "Nenhuma tarefa encontrada com o critério de pesquisa fornecido.\n";
     }
 }
@@ -161,6 +161,8 @@ void pesquisarTarefas() {
         }
     }
     */
+
+
 
 int main() {
     setlocale(LC_ALL, "pt_BR.UTF-8");
