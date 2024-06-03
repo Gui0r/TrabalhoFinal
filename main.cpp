@@ -44,10 +44,6 @@ void adicionarTarefa() {
         case 3:
             novaTarefa.status = "Concluida";
             break;
-        default:
-            cout << "Opção inválida. Status definido como Pendente.\n";
-            novaTarefa.status = "Pendente";
-            break;
     }
 
     // Adiciona a nova tarefa ao vetor
