@@ -7,7 +7,7 @@
 
 using namespace std;
 
-// o struct cria uma "lista" de dados, mais pea uma estrutura
+// O struct cria uma "lista" de dados, mais para uma estrutura
 struct Tarefa {
     int id;
     string nomeTarefa;
@@ -16,40 +16,53 @@ struct Tarefa {
     string status;
 };
 
-// cria um vector para as tarefas existentes 
+// Cria um vector para as tarefas existentes 
 vector<Tarefa> tarefas;
 
 void adicionarTarefa() {
     setlocale(LC_ALL, "pt_BR.UTF-8");
     int resp;
-    Tarefa novaTarefa; // cria uma tarefa que tem todos os campos do structure vazios
-    novaTarefa.id = rand() % 20;// atribui um id aleatorio de 1 a 20 para a nova tarefa
+    Tarefa novaTarefa; // Cria uma tarefa que tem todos os campos do structure vazios
+    novaTarefa.id = rand() % 20; // Atribui um id aleatorio de 1 a 20 para a nova tarefa
     cin.ignore();
     cout << "Digite o nome da tarefa: ";
-    getline(cin, novaTarefa.nomeTarefa); // atribui um nome para a nova tarefa
+    getline(cin, novaTarefa.nomeTarefa); // Atribui um nome para a nova tarefa
     cout << "Digite a descrição da tarefa: ";
-    getline(cin, novaTarefa.descricao); // atribui uma descricao a tarefa
+    getline(cin, novaTarefa.descricao); // Atribui uma descricao a tarefa
     cout << "Digite a data de vencimento da tarefa (DD/MM/AAAA): ";
-    getline(cin, novaTarefa.dataVencimento); // atribui uma data de vencimento a nova tarefa
-     cout << "Sua tarefa está concluida ou em pendencia? (1 para pendente ou 2 para em progresso e 3 para concluida): ";
-     cin >> resp;
-    if (resp = 1){
-        novaTarefa.status = "Pendente"; // atribui pendente ao status da tarefa
-    }else if(resp = 2){
-        novaTarefa.status = "Em progresso"; // atribui concluido ao status da tarefa
-    }else{
-        novaTarefa.status = "Concluida";
-    tarefas.push_back(novaTarefa); // criado a nova tarefa
+    getline(cin, novaTarefa.dataVencimento); // Atribui uma data de vencimento a nova tarefa
+    cout << "Sua tarefa está concluida ou em pendencia? (1 para pendente ou 2 para em progresso e 3 para concluida): ";
+    cin >> resp;
+
+    switch (resp) {
+        case 1:
+            novaTarefa.status = "Pendente"; 
+            break;
+        case 2:
+            novaTarefa.status = "Em progresso";
+            break;
+        case 3:
+            novaTarefa.status = "Concluida";
+            break;
+        default:
+            cout << "Opção inválida. Status definido como Pendente.\n";
+            novaTarefa.status = "Pendente";
+            break;
+    }
+
+    // Adiciona a nova tarefa ao vetor
+    tarefas.push_back(novaTarefa);
+
     cout << "Tarefa adicionada com sucesso!\n";
 }
 
 void listarTarefas() {
     setlocale(LC_ALL, "pt_BR.UTF-8");
-    if (tarefas.empty()) { // se não houver nemhuma tarefa 
+    if (tarefas.empty()) { // Se não houver nenhuma tarefa 
         cout << "Não há tarefas cadastradas.\n";
-    } else { // se houver tarefas
+    } else { // Se houver tarefas
         cout << "========== Lista de Tarefas: ==========\n";
-        for (const auto& tarefa : tarefas) { // cria uma variavel tarefa que represetara os elementos do vetor / o "auto" verifica automaticamente que tipo de dados é com base no vector
+        for (const auto& tarefa : tarefas) { // Cria uma variavel tarefa que represetará os elementos do vetor / o "auto" verifica automaticamente que tipo de dados é com base no vector
             cout << "ID: " << tarefa.id << "\n";
             cout << "Nome: " << tarefa.nomeTarefa << "\n";
             cout << "Descrição: " << tarefa.descricao << "\n";
@@ -71,7 +84,7 @@ void editarTarefas() {
             cout << "Digite o novo nome da tarefa: ";
             string nome;
             getline(cin, nome);
-            if (!nome.empty()) { // esse comando impede que o usuario atribua campos vazios, ou seja, se ele clicar enter sem digitar nada o campo que esta a ser editado permanecera o mesmo 
+            if (!nome.empty()) { // Esse comando impede que o usuario atribua campos vazios, ou seja, se ele clicar enter sem digitar nada o campo que esta a ser editado permanecera o mesmo 
                 tarefa.nomeTarefa = nome;
             }
 
@@ -129,7 +142,7 @@ void pesquisarTarefas() {
 
     bool found = false;
     for (const auto& tarefa : tarefas) {
-        if (tarefa.nomeTarefa.find(nome) == 0) { // verifica se o nome da tarefa começa com a string fornecida
+        if (tarefa.nomeTarefa.find(nome) == 0) { // Verifica se o nome da tarefa começa com a string fornecida
             if (!found) {
                 cout << "========== Resultados da Pesquisa: ==========\n";
                 found = true;
@@ -142,25 +155,10 @@ void pesquisarTarefas() {
         }
     }
 
-    if (found = false) {
+    if (!found) {
         cout << "Nenhuma tarefa encontrada com o critério de pesquisa fornecido.\n";
     }
 }
-
-/*
-  if (tarefas.empty()) { // se não houver nemhuma tarefa 
-        cout << "Não há tarefas cadastradas.\n";
-    } else { // se houver tarefas
-        cout << "========== Lista de Tarefas: ==========\n";
-        for (const auto& tarefa : tarefas) { // cria uma variavel tarefa que represetara os elementos do vetor / o "auto" verifica automaticamente que tipo de dados é com base no vector
-            cout << "ID: " << tarefa.id << "\n";
-            cout << "Nome: " << tarefa.nomeTarefa << "\n";
-            cout << "Descrição: " << tarefa.descricao << "\n";
-            cout << "Data de Vencimento: " << tarefa.dataVencimento << "\n";
-            cout << "Status: " << tarefa.status << "\n\n";
-        }
-    }
-    */
 
 void filtrarTarefasPorStatus() {
     setlocale(LC_ALL, "pt_BR.UTF-8");
@@ -221,16 +219,16 @@ int main() {
                 break;
             case 3:
                 editarTarefas();
-            break;
+                break;
             case 4:
                 removerTarefa();
-            break;
+                break;
             case 5:
                 pesquisarTarefas();
                 break;
             case 6:
-                filtrarPorStatus();
-            break;
+                filtrarTarefasPorStatus();
+                break;
             case 7:
                 cout << "Saindo do programa.\n";
                 break;
