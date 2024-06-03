@@ -122,7 +122,7 @@ void removerTarefa() {
         return tarefa.id == id;
     });
 
-    if (a != tarefas.end()) {
+    if (a != tarefas.end()) { //significa que ele encontrou pelo menos 1 tarefa com o id 
         tarefas.erase(a, tarefas.end());
         cout << "Tarefa removida com sucesso!\n";
     } else {
