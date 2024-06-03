@@ -162,7 +162,39 @@ void pesquisarTarefas() {
     }
     */
 
+void filtrarTarefasPorStatus() {
+    setlocale(LC_ALL, "pt_BR.UTF-8");
+    int opcao;
+    cout << "Escolha o status para filtrar as tarefas (1 para Pendente, 2 para Em Progresso, 3 para Concluída): ";
+    cin >> opcao;
+    
+    string status;
+    switch (opcao) {
+        case 1:
+            status = "Pendente";
+            break;
+        case 2:
+            status = "Em progresso";
+            break;
+        case 3:
+            status = "Concluída";
+            break;
+        default:
+            cout << "Opção inválida.\n";
+            return;
+    }
 
+    cout << "========== Tarefas com Status: " << status << " ==========\n";
+    for (const auto& tarefa : tarefas) {
+        if (tarefa.status == status) {
+            cout << "ID: " << tarefa.id << "\n";
+            cout << "Nome: " << tarefa.nomeTarefa << "\n";
+            cout << "Descrição: " << tarefa.descricao << "\n";
+            cout << "Data de Vencimento: " << tarefa.dataVencimento << "\n";
+            cout << "Status: " << tarefa.status << "\n\n";
+        }
+    }
+}
 
 int main() {
     setlocale(LC_ALL, "pt_BR.UTF-8");
@@ -197,7 +229,7 @@ int main() {
                 pesquisarTarefas();
                 break;
             case 6:
-
+                filtrarPorStatus();
             break;
             case 7:
                 cout << "Saindo do programa.\n";
