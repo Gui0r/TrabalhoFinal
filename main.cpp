@@ -118,12 +118,12 @@ void removerTarefa() {
     cout << "Digite o ID da tarefa para ser removida: ";
     cin >> id;
 
-    auto it = remove_if(tarefas.begin(), tarefas.end(), [id](const Tarefa& tarefa) {
+    auto a = remove_if(tarefas.begin(), tarefas.end(), [id](const Tarefa& tarefa) {
         return tarefa.id == id;
     });
 
-    if (it != tarefas.end()) {
-        tarefas.erase(it, tarefas.end());
+    if (a != tarefas.end()) {
+        tarefas.erase(a, tarefas.end());
         cout << "Tarefa removida com sucesso!\n";
     } else {
         cout << "Não foi encontrada nenhuma tarefa com o ID fornecido.\n";
