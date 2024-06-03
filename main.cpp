@@ -31,7 +31,7 @@ void adicionarTarefa() {
     getline(cin, novaTarefa.descricao); // Atribui uma descricao a tarefa
     cout << "Digite a data de vencimento da tarefa (DD/MM/AAAA): ";
     getline(cin, novaTarefa.dataVencimento); // Atribui uma data de vencimento a nova tarefa
-    cout << "Sua tarefa está concluida ou em pendencia? (1 para pendente ou 2 para em progresso e 3 para concluida): ";
+    cout << "Sua tarefa está concluida ou em pendencia? (1 para pendente ou 2 para em progresso e 3 para concuida): ";
     cin >> resp;
 
     switch (resp) {
