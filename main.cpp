@@ -71,7 +71,7 @@ void editarTarefas() {
             cout << "Digite o novo nome da tarefa: ";
             string nome;
             getline(cin, nome);
-            if (!nome.empty()) {
+            if (!nome.empty()) { // esse comando impede que o usuario atribua campos vazios, ou seja, se ele clicar enter sem digitar nada o campo que esta a ser editado permanecera o mesmo 
                 tarefa.nomeTarefa = nome;
             }
 
