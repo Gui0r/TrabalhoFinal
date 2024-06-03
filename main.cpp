@@ -31,13 +31,14 @@ void adicionarTarefa() {
     getline(cin, novaTarefa.descricao); // atribui uma descricao a tarefa
     cout << "Digite a data de vencimento da tarefa (DD/MM/AAAA): ";
     getline(cin, novaTarefa.dataVencimento); // atribui uma data de vencimento a nova tarefa
-     cout << "Sua tarefa está concluida ou em pendencia? (1 para pendente ou 2 para concluida): ";
+     cout << "Sua tarefa está concluida ou em pendencia? (1 para pendente ou 2 para em progresso e 3 para concluida): ";
      cin >> resp;
     if (resp = 1){
         novaTarefa.status = "Pendente"; // atribui pendente ao status da tarefa
+    }else if(resp = 2){
+        novaTarefa.status = "Em progresso"; // atribui concluido ao status da tarefa
     }else{
-        novaTarefa.status = "Concluida"; // atribui concluido ao status da tarefa
-    }
+        novaTarefa.status = "Concluida";
     tarefas.push_back(novaTarefa); // criado a nova tarefa
     cout << "Tarefa adicionada com sucesso!\n";
 }
